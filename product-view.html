@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Product - VAYOME</title>
+
+    <!-- Bootstrap + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --indigo: #1A237E;
+            --violet: #6A1B9A;
+            --baby-pink: #F8BBD0;
+            --deep-blue: #0F1A8A;
+            --grey: #EDECEC;
+            --lavender-light: #F8F2F7;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #fff;
+        }
+
+        .product-section {
+            max-width: 1300px;
+            margin: auto;
+            padding: 40px 16px 80px;
+        }
+
+        .sticky-wrapper {
+            position: sticky;
+            top: 90px;
+        }
+
+        @media (max-width: 991px) {
+            .sticky-wrapper {
+                position: static !important;
+            }
+        }
+
+        .main-img {
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .thumb-img {
+            width: 100%;
+            height: 95px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .thumb-img.active,
+        .thumb-img:hover {
+            border-color: var(--violet);
+            transform: scale(1.05);
+        }
+
+        .product-title {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--deep-blue);
+        }
+
+        @media (min-width: 992px) {
+            .product-title {
+                font-size: 38px;
+            }
+        }
+
+        .price-box {
+            margin: 18px 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #777;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .new-price {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--violet);
+        }
+
+        .sale-badge {
+            background: var(--violet);
+            color: #fff;
+            padding: 6px 14px;
+            font-size: 13px;
+            border-radius: 50px;
+            margin-left: 10px;
+        }
+
+        .option-btn {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 1.5px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .option-btn.active {
+            border-color: var(--violet);
+            background: var(--baby-pink);
+            color: var(--deep-blue);
+        }
+
+        .qty-box {
+            display: flex;
+            align-items: center;
+            width: 130px;
+            margin: 20px 0;
+            border: 1.5px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            width: 40px;
+            height: 44px;
+            background: #f8f8f8;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .qty-num {
+            width: 50px;
+            text-align: center;
+            border: none;
+            font-weight: 600;
+            padding: 10px;
+        }
+
+        .addon-box {
+            border: 1.5px dashed #ddd;
+            padding: 18px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .addon-btn {
+            background: var(--violet);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .add-btn,
+        .buy-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 50px;
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+
+        .add-btn {
+            background: var(--violet);
+            color: #fff;
+            border: none;
+        }
+
+        .add-btn:hover {
+            background: #5a1688;
+            transform: translateY(-2px);
+        }
+
+        .buy-btn {
+            background: #000;
+            color: #fff;
+            border: none;
+        }
+
+        .desc-section {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid #eee;
+        }
+
+        .desc-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--deep-blue);
+            margin-bottom: 20px;
+        }
+
+        .cart-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--violet);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(106, 27, 154, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+            z-index: 9999;
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg main-nav" data-aos="fade-down">
+        <div class="container">
+            <a class="navbar-brand mobile-logo" href="index.html">
+                <img src="img/logo.png" class="nav-logo" alt="Logo">
+            </a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainMenu">
+                <ul class="navbar-nav nav-left mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Collections</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="all-Collections.html">All Collections</a></li>
+                            <li><a class="dropdown-item" href="sarees.html">Sarees</a></li>
+                            <li><a class="dropdown-item" href="lehengas.html">Lehengas</a></li>
+                            <li><a class="dropdown-item" href="kurthas.html">Kurthas</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="new-arrivals.html">New Arrivals</a></li>
+                </ul>
+
+                <a href="index.html" class="navbar-brand center-logo">
+                    <img src="img/logo.png" class="nav-logo">
+                </a>
+
+                <ul class="navbar-nav nav-right-menu mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="celebrity.html">Celebrity</a></li>
+                    <li class="nav-item"><a class="nav-link" href="our-story.html">Our Story</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+
+                <div class="nav-right">
+                    <a href="log-in.html"><i class="fa-regular fa-user"></i></a>
+                    <div class="cart-icon-wrapper" style="position:relative;">
+                        <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+                        <span id="cart-count" class="cart-count-badge">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- TOAST -->
+    <div id="cart-toast" class="cart-toast">
+        Added to Cart
+    </div>
+
+    <section class="product-section">
+
+        <div class="row g-5">
+
+            <!-- LEFT IMAGE GALLERY -->
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="sticky-wrapper">
+                    <img id="mainImage" class="main-img"
+                        src="https://shreemall.com/cdn/shop/files/pure-banarasi-digitally-printed-silk-saree-weaved-with-zari-comes-with-tassels-175979_11091b4f-409c-447e-a201-01f4ef43cdf5.jpg?v=1742837338&width=720"
+                        alt="Main">
+
+                    <div class="row mt-4 g-3" id="thumbContainer">
+                        <div class="col-3"><img class="thumb-img active"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0-MtgOXnbYYj_is1K9q-isdrnXiYybVSJ4w&s"
+                                onclick="changeImage(this)"></div>
+                        <div class="col-3"><img class="thumb-img"
+                                src="https://hmrhandlooms.com/cdn/shop/files/5F47D4B9-1855-493F-811B-6910D0DD01B2.jpg?v=1764259109&width=1100"
+                                onclick="changeImage(this)"></div>
+                        <div class="col-3"><img class="thumb-img"
+                                src="https://hmrhandlooms.com/cdn/shop/files/IMG_2769.jpg?v=1754660088"
+                                onclick="changeImage(this)"></div>
+                        <div class="col-3"><img class="thumb-img"
+                                src="https://hmrhandlooms.com/cdn/shop/files/IMG_3967.jpg?v=1706109059&width=1100"
+                                onclick="changeImage(this)"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT DETAILS -->
+            <div class="col-lg-6" data-aos="fade-left">
+                <h1 class="product-title">Ivory Banaras Tissue Saree with Embroidery</h1>
+
+                <div class="price-box">
+                    <span class="old-price">Rs. 15,900.00</span>
+                    <span class="new-price">Rs. 13,500.00</span>
+                    <span class="sale-badge">Sale</span>
+                </div>
+
+                <p class="mt-4 fw-semibold mb-2">Color: Ivory</p>
+
+                <p class="fw-semibold mb-2">Blouse Stitching</p>
+                <div class="d-flex gap-3 mb-4" id="blouseOptions">
+                    <button class="option-btn active">Unstitched</button>
+                    <button class="option-btn">Stitched (+₹1,200)</button>
+                </div>
+
+                <p class="fw-semibold mb-2">Quantity</p>
+                <div class="qty-box">
+                    <button class="qty-btn" id="qtyMinus">-</button>
+                    <input type="text" id="qtyNum" class="qty-num" value="1" readonly>
+                    <button class="qty-btn" id="qtyPlus">+</button>
+                </div>
+
+                <div class="addon-box">
+                    <div>
+                        <p class="fw-semibold mb-1">Add Fall & Edging</p>
+                        <p class="small mb-0 text-success">₹800</p>
+                    </div>
+                    <button class="addon-btn">+ Add</button>
+                </div>
+
+                <p class="fw-semibold mb-2">Note to Boutique (Optional)</p>
+                <textarea class="form-control" rows="3" placeholder="Any special requests..."></textarea>
+
+                <button class="add-btn mt-4" onclick="addToCart()">Add to Cart</button>
+                <button class="buy-btn" onclick="addToCart(); window.location='checkout.html'">Buy it Now</button>
+
+                <p class="mt-4"><i class="fa-solid fa-store text-success"></i> Pickup available at Hyderabad Studio —
+                    Ready in 4 hours</p>
+            </div>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="desc-section" data-aos="fade-up">
+            <h3 class="desc-title">Product Description</h3>
+            <p>This premium Banaras Tissue Saree features fine zari borders and elegant hand embroidery. Ideal for
+                weddings, festive functions, and elegant traditional events.</p>
+            <ul class="mt-3">
+                <li>Handwoven Banaras Tissue Silk</li>
+                <li>Rich zari border with intricate motifs</li>
+                <li>Lightweight and comfortable drape</li>
+                <li>Comes with unstitched blouse piece</li>
+            </ul>
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" data-aos="fade-up">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 footer-logo-center">
+                    <img src="img/logo.png" alt="VAYOME Logo" style="height: 100px;">
+                    <p>Luxury boutique wear designed with elegance and perfection.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Quick Links</h5><a href="index.html">Home</a><a href="all-Collections.html">Collections</a><a
+                        href="new-arrivals.html">New Arrivals</a><a href="contact.html">Contact</a>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Categories</h5><a href="sarees.html">Sarees</a><a href="lehengas.html">Lehengas</a><a
+                        href="celebrity.html">Celebrity</a><a href="kurthas.html">Kurthas</a>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact Us</h5>
+                    <p>Hyderabad, India</p>
+                    <p>+91 98765 43210</p>
+                    <p>support@vayome.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2025 VAYOME – All Rights Reserved.</div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+
+        // CART SYSTEM
+        let cartCount = localStorage.getItem("cartCount") ? parseInt(localStorage.getItem("cartCount")) : 0;
+        function updateCartIcon() {
+            const badge = document.getElementById("cart-count");
+            if (badge) { badge.textContent = cartCount; badge.style.display = cartCount > 0 ? "inline-block" : "none"; }
+        }
+        function showToast() {
+            const toast = document.getElementById("cart-toast");
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2500);
+        }
+        function addToCart() {
+            cartCount++;
+            localStorage.setItem("cartCount", cartCount);
+            updateCartIcon();
+            showToast();
+        }
+        updateCartIcon();
+
+        // IMAGE GALLERY
+        function changeImage(thumb) {
+            document.getElementById("mainImage").src = thumb.src;
+            document.querySelectorAll(".thumb-img").forEach(t => t.classList.remove("active"));
+            thumb.classList.add("active");
+        }
+
+        // QUANTITY
+        document.getElementById("qtyMinus").onclick = () => {
+            let val = parseInt(document.getElementById("qtyNum").value);
+            if (val > 1) document.getElementById("qtyNum").value = val - 1;
+        };
+        document.getElementById("qtyPlus").onclick = () => {
+            let val = parseInt(document.getElementById("qtyNum").value);
+            document.getElementById("qtyNum").value = val + 1;
+        };
+
+        // BLOUSE OPTIONS
+        document.querySelectorAll("#blouseOptions .option-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll("#blouseOptions .option-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+            });
+        });
+    </script>
+</body>
+
+</html>

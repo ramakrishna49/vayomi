@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Collections – VAYOME</title>
+
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- AOS Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Main Theme -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --indigo: #1A237E;
+      --violet: #6A1B9A;
+      --baby-pink: #F8BBD0;
+      --deep-blue: #0F1A8A;
+      --grey: #EDECEC;
+      --lavender: var(--violet);
+      --lavender-light: #F8F2F7;
+      --text: #222222;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #ffffff;
+    }
+
+    .page-wrapper {
+      padding: 80px 0;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .page-title {
+      font-size: 42px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .underline {
+      width: 80px;
+      height: 4px;
+      background: var(--lavender);
+      border-radius: 3px;
+      margin-bottom: 40px;
+    }
+
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      z-index: 1000;
+      position: relative;
+    }
+
+    .filter-left {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .filter-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .filter-btn {
+      font-size: 15px;
+      color: #555;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .filter-btn:hover {
+      color: var(--lavender);
+    }
+
+    .filter-btn i {
+      font-size: 12px;
+    }
+
+    .dropdown-menu {
+      z-index: 2000 !important;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--lavender);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(106, 27, 154, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-20px);
+      transition: all 0.4s ease;
+      z-index: 9999;
+      font-weight: 600;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cart-toast.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .add-btn {
+      padding: 8px 20px;
+      border-radius: 30px;
+      background: var(--lavender);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .add-btn:hover {
+      background: #8a2be2;
+    }
+
+    .view-btn {
+      color: var(--lavender);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .view-btn:hover {
+      color: #8a2be2;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg main-nav" data-aos="fade-down">
+    <!-- Your existing navbar (unchanged) -->
+    <div class="container">
+      <a class="navbar-brand mobile-logo" href="index.html"><img src="img/logo.png" class="nav-logo" alt="Logo"></a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mainMenu"><i
+          class="fa-solid fa-bars"></i></button>
+
+      <div class="collapse navbar-collapse" id="mainMenu">
+        <ul class="navbar-nav nav-left mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Collections</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item active" href="all-collections.html">All Collections</a></li>
+              <li><a class="dropdown-item" href="sarees.html">Sarees</a></li>
+              <li><a class="dropdown-item" href="lehengas.html">Lehengas</a></li>
+              <li><a class="dropdown-item" href="kurthas.html">Kurthas</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="new-arrivals.html">New Arrivals</a></li>
+        </ul>
+
+        <a href="index.html" class="navbar-brand center-logo"><img src="img/logo.png" class="nav-logo" alt="VAYOME"></a>
+
+        <ul class="navbar-nav nav-right-menu mx-auto">
+          <li class="nav-item"><a class="nav-link" href="celebrity.html">Celebrity</a></li>
+          <li class="nav-item"><a class="nav-link" href="our-story.html">Our Story</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+
+        <div class="nav-right">
+          <a href="log-in.html"><i class="fa-regular fa-user"></i></a>
+          <div class="cart-icon-wrapper" style="position:relative;">
+            <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+            <span id="cart-count" class="cart-count-badge">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrapper container">
+    <h1 class="page-title" data-aos="fade-up">All Collections</h1>
+    <div class="underline" data-aos="fade-up" data-aos-delay="200"></div>
+
+    <!-- FULLY WORKING FILTER BAR -->
+    <div class="filter-bar" data-aos="fade-up" data-aos-delay="300">
+      <div class="filter-left">
+        <span class="filter-btn">Filter</span>
+
+        <div class="dropdown d-inline">
+          <span class="filter-btn dropdown-toggle" data-bs-toggle="dropdown">
+            Availability
+          </span>
+          <ul class="dropdown-menu">
+            <li><label class="dropdown-item"><input type="checkbox" class="me-2" onchange="applyFilters()"> In
+                Stock</label></li>
+            <li><label class="dropdown-item"><input type="checkbox" class="me-2" onchange="applyFilters()">
+                Pre-order</label></li>
+          </ul>
+        </div>
+
+        <div class="dropdown d-inline">
+          <span class="filter-btn dropdown-toggle" data-bs-toggle="dropdown">
+            Price
+          </span>
+          <ul class="dropdown-menu">
+            <li><label class="dropdown-item"><input type="radio" name="price" value="all" checked
+                  onchange="applyFilters()"> All Prices</label></li>
+            <li><label class="dropdown-item"><input type="radio" name="price" value="0-10000" onchange="applyFilters()">
+                Under ₹10,000</label></li>
+            <li><label class="dropdown-item"><input type="radio" name="price" value="10000-25000"
+                  onchange="applyFilters()"> ₹10,000 - ₹25,000</label></li>
+            <li><label class="dropdown-item"><input type="radio" name="price" value="25000+" onchange="applyFilters()">
+                Above ₹25,000</label></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="filter-right">
+        <span class="filter-btn">Sort by:</span>
+        <select class="form-select d-inline-block w-auto border-0 bg-transparent filter-btn"
+          onchange="sortProducts(this.value)">
+          <option value="featured">Featured</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+        </select>
+        <span class="filter-btn" id="product-count">36 products</span>
+      </div>
+    </div>
+
+    <!-- ALL 36 PRODUCTS WITH LEFT/RIGHT ANIMATION -->
+    <div class="row g-4">
+
+      <!-- 1 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://imagescdn.jaypore.com/img/app/product/4/40017224-20796033.jpg?w=500&auto=format"></div>
+          <section>
+            <h2>Brown Copper Kurtha</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 3,599</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="150">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://cdn.sareeka.com/image/cache/data2024/jacquard-work-banarasi-silk-classic-sari-in-red-284077-1000x1375.jpg">
+          </div>
+          <section>
+            <h2>Traditional Red Banarasi</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 12,990</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="200">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://assets.myntassets.com/w_412,q_30,dpr_3,fl_progressive,f_webp/assets/images/15244030/2024/8/21/1599e295-9b55-4523-ada1-26ea3efee0a81724219208381-Suta-Green--Golden-Zari-Pure-Linen-Saree-6871724219207719-1.jpg">
+          </div>
+          <section>
+            <h2>Pastel Pink Organza</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 8,750</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 4 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="250">
+        <div class="product-card-ani">
+          <div class="img-box"><img src="https://m.media-amazon.com/images/I/7166nkh1ToL._AC_UY1100_.jpg"></div>
+          <section>
+            <h2>Blue Kanjivaram Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 16,200</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://rukminim2.flixcart.com/image/480/640/xif0q/sari/9/5/3/free-sf-406-tushki-fab-unstitched-original-imagyg7ehcpabz5u.jpeg?q=90">
+          </div>
+          <section>
+            <h2>Sea Green Silk Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 12,450</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 6 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="150">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://rukminim2.flixcart.com/image/480/640/xif0q/sari/u/d/u/free-banarasi-avantika-fashion-unstitched-original-imahfsvryyyh3thh.jpeg?q=90">
+          </div>
+          <section>
+            <h2>Black Gold Tissue Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 18,000</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 7 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="200">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://rukminim2.flixcart.com/image/480/640/xif0q/sari/n/8/0/free-759-pink-leheriya-silk-saree-lichi-soft-silk-jacquard-woven-original-imah7x3bu8qah9xt.jpeg?q=90">
+          </div>
+          <section>
+            <h2>Blush Organza Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 9,450</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 8 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="250">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://rukminim2.flixcart.com/image/480/580/xif0q/sari/5/u/c/free-minal-creation-women-s-exclusive-kanjivaram-silk-saree-original-imagkrvuyhwfxzet.jpeg?q=90">
+          </div>
+          <section>
+            <h2>Mint Green Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 8,200</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="product-card-ani">
+          <div class="img-box"><img src="https://assets0.mirraw.com/images/7536241/image_zoom.jpeg?1573035220"></div>
+          <section>
+            <h2>Magenta Silk Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 15,750</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 10 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="150">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://rukminim2.flixcart.com/image/480/640/xif0q/sari/m/c/h/free-pckpjcqsr103-gajgajra-unstitched-original-imahf4hwmptcbku4.jpeg?q=90">
+          </div>
+          <section>
+            <h2>Royal Blue Banarasi</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 13,850</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 11 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="200">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://rukminim2.flixcart.com/image/480/580/xif0q/sari/v/z/p/free-padma-off-white-ramjay-unstitched-original-imag9yujtgunxgcd.jpeg?q=90">
+          </div>
+          <section>
+            <h2>Bottle Green Silk Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 14,950</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 12 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="250">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://clothsvilla.com/cdn/shop/products/ShrijiAvadh-DevasreeSilk_2_1024x1024.jpg?v=1698188578">
+          </div>
+          <section>
+            <h2>Pastel Green Handloom</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 10,800</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- 13 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://assets.ajio.com/medias/sys_master/root/20230629/s2l8/649cdfb2a9b42d15c91df3f3/-473Wx593H-466041079-pink-MODEL.jpg">
+          </div>
+          <section>
+            <h2>Rust Silk Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 11,250</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 14 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="150">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://www.banarasee.in/cdn/shop/files/IMG_3423_4245f371-f188-4574-94fd-c6df70c94691_600x.jpg?v=1690966595">
+          </div>
+          <section>
+            <h2>Yellow Festive Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 9,999</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 15 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="200">
+        <div class="product-card-ani">
+          <div class="img-box"><img src="https://assets0.mirraw.com/images/12963672/image_zoom.jpeg?1732946951"></div>
+          <section>
+            <h2>Teal Blue Tissue Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 13,200</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 16 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="250">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://banarasikargha.in/cdn/shop/products/DSC_3048.jpg?v=1679310636&width=768"></div>
+          <section>
+            <h2>Emerald Green Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 12,500</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- 17 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="product-card-ani">
+          <div class="img-box"><img src="https://m.media-amazon.com/images/I/61CzGspG+OL._AC_UY1100_.jpg"></div>
+          <section>
+            <h2>Lavender Soft Net Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 11,450</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 18 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="150">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://5.imimg.com/data5/SELLER/Default/2023/3/296147801/EZ/OD/QN/66109004/kp-3044-4--500x500.jpeg">
+          </div>
+          <section>
+            <h2>Black Sequin Saree</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 14,650</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 19 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="200">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://assets.panashindia.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/3/2/3265lg05-5090-purple.jpg">
+          </div>
+          <section>
+            <h2>Regal Purple Organza Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 16,675</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 20 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="250">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://assets2.andaazfashion.com/media/catalog/product/o/f/off-white-silk-embroidered-party-wear-lehenga-llcv110170-1.jpg">
+          </div>
+          <section>
+            <h2>Ivory Zardozi Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 86,250</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- 21 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://pictures.kartmax.in/live/inside/800x800/sites/9s145MyZrWdIAwpU0JYS/product-images/pastel_green_silk_wedding_lehenga_choli_1750917819parshvi.jpg">
+          </div>
+          <section>
+            <h2>Plum Zardozi Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 51,750</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 22 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="150">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://www.anantexports.in/cdn/shop/files/IMG-20250131_184816.jpg?v=1738329615&width=1946"></div>
+          <section>
+            <h2>Blush Pink Draped Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 21,275</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 23 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="200">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://images.cbazaar.com/images/red-organza-zari-embroidered-sequins-lehenga-ghscbep7069re-u.jpg">
+          </div>
+          <section>
+            <h2>Emerald Green Bridal Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 65,500</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 24 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="250">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://www.tamannapunjabikapoor.com/cdn/shop/products/4_3f9bc3d0-8940-4ff5-a952-c1a9cd6c91a9.jpg?v=1746901028&width=1080">
+          </div>
+          <section>
+            <h2>Mint Organza Lehenga Set</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 18,450</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- 25 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://tapee.in/cdn/shop/files/ChinonSilkZariEmbroideredWorkDesignerTealBlueLehengaCholi.png?v=1718279214">
+          </div>
+          <section>
+            <h2>Teal Blue Handwo Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 32,900</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 26 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="150">
+        <div class="product-card-ani">
+          <div class="img-box"><img src="https://www.mohifashion.com/cdn/shop/files/10252a.jpg?v=1698992915&width=1946">
+          </div>
+          <section>
+            <h2>Golden Bridal Banarasi Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 74,999</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 27 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="200">
+        <div class="product-card-ani">
+          <div class="img-box"><img src="https://empress-clothing.com/cdn/shop/products/2167_1.jpg?v=1663831013"></div>
+          <section>
+            <h2>Magenta Festive Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 24,650</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 28 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="250">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxtPWj1-ppDMfFya0xPBELZT1JOYZnsYBIog&s"></div>
+          <section>
+            <h2>Royal Blue Silk Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 29,999</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- 29 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqsUjivOndGLULvlTY6t6zP8Oo9_XHT4s2FQ&s"></div>
+          <section>
+            <h2>Bottle Green Velvet Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 41,750</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 30 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="150">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://assets.panashindia.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/2/0/2003lg02-1002.jpg">
+          </div>
+          <section>
+            <h2>Pastel Green Net Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 17,800</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 31 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="200">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtqE2avJB9NBS3uX1xNCAKRzhH7yWC3wyYzw&s"></div>
+          <section>
+            <h2>Red Bridal Zari Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 89,000</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 32 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="250">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://images.cbazaar.com/images/yellow-faux-georgette-embroidered-sequins-breathtaking-lehenga--ghsepcb5127y-u.jpg">
+          </div>
+          <section>
+            <h2>Yellow Georgette Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 13,900</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- 33 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="100">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgcV0D7rDGilpEU5heodtv_w-oYKbW8p920A&s"></div>
+          <section>
+            <h2>Floral Printed Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 11,750</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 34 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="150">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHAT4nXutZ4wrbnd5hPvO0UJbovDS-FWChwg&s"></div>
+          <section>
+            <h2>Pink Designer Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 27,600</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 35 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-right" data-aos-delay="200">
+        <div class="product-card-ani">
+          <div class="img-box"><img src="https://www.distacart.com/cdn/shop/files/MC_Black-2_600x.jpg?v=1741586017">
+          </div>
+          <section>
+            <h2>Black Handcrafted Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 33,999</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 36 -->
+      <div class="col-lg-3 col-md-4 col-6" data-aos="fade-left" data-aos-delay="250">
+        <div class="product-card-ani">
+          <div class="img-box"><img
+              src="https://www.fabfunda.com/product-img/wedding-collection-purple-soft-1723096680.jpg"></div>
+          <section>
+            <h2>Lavender Soft Net Lehenga</h2>
+            <div class="bottom-row"><span class="price-tag">Rs. 22,450</span>
+              <div class="button-row"><button class="add-btn" onclick="addToCart()">Add</button><a
+                  href="product-view.html" class="view-btn">View</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="cart-toast" class="cart-toast">
+    Added to Cart
+  </div>
+
+  <!-- COLLECTIONS SECTION -->
+  <section class="collections-section py-5" data-aos="fade-up">
+    <div class="container">
+      <div class="section-header mb-4">
+        <h2>Collections</h2>
+        <div class="underline"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-3 col-6 text-center" data-aos="zoom-in" data-aos-delay="100">
+          <div class="collection-card"><a href="lehengas.html"><img
+                src="https://www.inddus.com/cdn/shop/files/7086NAVYBLUE_01.jpg?v=1749813613"></a></div>
+          <a href="lehengas.html">
+            <p class="collection-name">Lehengas</p>
+          </a>
+        </div>
+        <div class="col-md-3 col-6 text-center" data-aos="zoom-in" data-aos-delay="200">
+          <div class="collection-card"><a href="sarees.html"><img
+                src="https://assets0.mirraw.com/images/12963672/image_zoom.jpeg?1732946951"></a></div>
+          <a href="sarees.html">
+            <p class="collection-name">Sarees</p>
+          </a>
+        </div>
+        <div class="col-md-3 col-6 text-center" data-aos="zoom-in" data-aos-delay="300">
+          <div class="collection-card"><a href="celebrity.html"><img
+                src="https://bollyspice.com/wp-content/uploads/2025/02/IMG_5383.jpeg"></a></div>
+          <a href="celebrity.html">
+            <p class="collection-name">Celebrity</p>
+          </a>
+        </div>
+        <div class="col-md-3 col-6 text-center" data-aos="zoom-in" data-aos-delay="400">
+          <div class="collection-card"><a href="kurthas.html"><img
+                src="https://taractara.com/cdn/shop/products/white-floral-printed-hand-block-printed-cotton-kurta-set-with-dupatta-885735_1000x.jpg?v=1706182185"></a>
+          </div>
+          <a href="kurthas.html">
+            <p class="collection-name">Kurthas</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" data-aos="fade-up">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 footer-logo-center">
+          <img src="img/logo.png" alt="VAYOME Logo" style="height: 100px;">
+          <p>Luxury boutique wear designed with elegance and perfection.</p>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5>Quick Links</h5><a href="index.html">Home</a><a href="all-Collections.html">Collections</a><a
+            href="new-arrivals.html">New Arrivals</a><a href="contact.html">Contact</a>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5>Categories</h5><a href="sarees.html">Sarees</a><a href="lehengas.html">Lehengas</a><a
+            href="celebrity.html">Celebrity</a><a href="kurthas.html">Kurthas</a>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5>Contact Us</h5>
+          <p> Hyderabad, India</p>
+          <p> +91 98765 43210</p>
+          <p> support@boutique.com</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 VAYOME – All Rights Reserved.</div>
+  </footer>
+
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+
+    let cartCount = localStorage.getItem("cartCount") ? parseInt(localStorage.getItem("cartCount")) : 0;
+    function updateCartIcon() {
+      const badge = document.getElementById("cart-count");
+      if (badge) { badge.textContent = cartCount; badge.style.display = cartCount > 0 ? "inline-block" : "none"; }
+    }
+    function showToast() {
+      const toast = document.getElementById("cart-toast");
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2500);
+    }
+    function addToCart() { cartCount++; localStorage.setItem("cartCount", cartCount); updateCartIcon(); showToast(); }
+    updateCartIcon();
+
+    // FULLY WORKING FILTER & SORT
+    function getPrice(el) {
+      const text = el.querySelector('.price-tag').textContent;
+      return parseInt(text.replace(/[^\d]/g, '')) || 0;
+    }
+
+    function applyFilters() {
+      const products = document.querySelectorAll('.col-lg-3');
+      let visible = 0;
+      const priceFilter = document.querySelector('input[name="price"]:checked')?.value || 'all';
+      const [min, max] = priceFilter === 'all' ? [0, Infinity] :
+        priceFilter === '25000+' ? [25000, Infinity] :
+          priceFilter.split('-').map(Number);
+
+      products.forEach(p => {
+        const price = getPrice(p);
+        if (price >= min && price <= max) {
+          p.style.display = '';
+          visible++;
+        } else {
+          p.style.display = 'none';
+        }
+      });
+      document.getElementById('product-count').textContent = visible + ' products';
+    }
+
+    function sortProducts(criteria) {
+      const container = document.querySelector('.row.g-4');
+      const items = Array.from(container.querySelectorAll('.col-lg-3'));
+
+      items.sort((a, b) => {
+        const pa = getPrice(a), pb = getPrice(b);
+        if (criteria === 'price-low') return pa - pb;
+        if (criteria === 'price-high') return pb - pa;
+        return 0;
+      });
+
+      items.forEach(item => container.appendChild(item));
+    }
+  </script>
+</body>
+
+</html>

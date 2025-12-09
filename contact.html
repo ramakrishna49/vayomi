@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact – VAYOME</title>
+
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Main Global CSS (navbar/footer/theme) -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --violet: #6A1B9A;
+      --deep-blue: #0F1A8A;
+      --soft-bg: #F8F4F8;
+      --text: #222;
+      --border-soft: #e7d7fb;
+      --accent: #f3e5ff;
+      --danger: #dc3545;
+      --success: #28a745;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top, #faf5ff 0, #ffffff 55%, #f9f2ff 100%);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    main {
+      padding-top: 110px;
+    }
+
+    /* ================== PARALLAX HERO ================== */
+
+    .contact-hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      color: #fff;
+      background-image: url("https://images.pexels.com/photos/994523/pexels-photo-994523.jpeg?auto=compress&cs=tinysrgb&w=1600");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow: hidden;
+    }
+
+    .contact-hero-overlay {
+      width: 100%;
+      padding: 90px 0 80px;
+      background: radial-gradient(circle at 0 0, rgba(250, 244, 255, 0.6) 0, transparent 45%),
+        linear-gradient(130deg, rgba(46, 46, 84, 0.92), rgba(124, 72, 186, 0.9), rgba(198, 141, 232, 0.88));
+    }
+
+    .contact-hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .hero-badge {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .contact-hero-title {
+      font-size: 40px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .contact-hero-sub {
+      font-size: 15px;
+      max-width: 520px;
+      opacity: 0.95;
+      margin-bottom: 18px;
+    }
+
+    .hero-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.9px;
+      opacity: .9;
+    }
+
+    .hero-meta-row span {
+      padding-bottom: 3px;
+      border-bottom: 1px solid rgba(255, 218, 255, 0.8);
+      white-space: nowrap;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 26px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(10, 10, 20, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      font-size: 12px;
+    }
+
+    .hero-pill i {
+      font-size: 16px;
+    }
+
+    /* Parallax helper attr (so we can reuse later if needed) */
+    [data-parallax] {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* ================== INFO BAND ================== */
+
+    .info-band {
+      padding: 70px 0 50px;
+      background: radial-gradient(circle at 0% 100%, rgba(245, 231, 255, 0.9) 0, transparent 60%),
+        radial-gradient(circle at 100% 0%, rgba(106, 27, 154, 0.08) 0, transparent 60%);
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--deep-blue);
+      margin-bottom: 4px;
+    }
+
+    .section-sub {
+      font-size: 14px;
+      color: #555;
+      max-width: 520px;
+    }
+
+    .section-line {
+      width: 72px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--violet), var(--deep-blue));
+      margin: 18px 0 26px;
+    }
+
+    .info-cards-row {
+      margin-top: 10px;
+    }
+
+    .info-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 22px 18px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 12px 35px rgba(93, 64, 142, 0.08);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 45px rgba(93, 64, 142, 0.15);
+      border-color: rgba(106, 27, 154, 0.4);
+    }
+
+    .info-icon-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+    }
+
+    .info-icon-wrap i {
+      color: var(--violet);
+      font-size: 18px;
+    }
+
+    .info-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #777;
+    }
+
+    .info-main {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .info-note {
+      font-size: 13px;
+      color: #777;
+    }
+
+    /* ================== FORM + MAP STRIP ================== */
+
+    .contact-strip {
+      padding: 70px 0 80px;
+      background: #fdfbff;
+      border-top: 1px solid #f1e7ff;
+      border-bottom: 1px solid #f1e7ff;
+    }
+
+    .contact-card {
+      background: #fff;
+      border-radius: 26px;
+      padding: 32px 26px 30px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+      height: 100%;
+    }
+
+    .contact-card h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--deep-blue);
+    }
+
+    .contact-card p {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 18px;
+    }
+
+    .form-control {
+      border-radius: 12px;
+      border: 1.4px solid #dfd2f5;
+      font-size: 14px;
+      padding: 12px 14px;
+      transition: all .25s;
+    }
+
+    .form-control:focus {
+      border-color: var(--violet);
+      box-shadow: 0 0 0 0.2rem rgba(106, 27, 154, 0.18);
+    }
+
+    .form-control.is-invalid {
+      border-color: var(--danger);
+    }
+
+    .form-control.is-valid {
+      border-color: var(--success);
+    }
+
+    .invalid-feedback {
+      font-size: 0.85rem;
+      color: var(--danger);
+      margin-top: 4px;
+    }
+
+    .btn-send {
+      padding: 11px 32px;
+      border-radius: 999px;
+      border: none;
+      background: var(--violet);
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: .5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 14px 36px rgba(106, 27, 154, 0.32);
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+
+    .btn-send:hover:not(:disabled) {
+      background: #5a1584;
+      transform: translateY(-2px);
+      box-shadow: 0 18px 45px rgba(106, 27, 154, 0.45);
+    }
+
+    .btn-send:disabled {
+      background: #bfa6dd;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .alert-success {
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-size: 14px;
+      margin-top: 16px;
+    }
+
+    .map-shell {
+      background: radial-gradient(circle at 0 0, #f7ecff 0, transparent 65%);
+      border-radius: 26px;
+      padding: 6px;
+      border: 1px solid #e0d2f8;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px 4px;
+    }
+
+    .map-header span {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .map-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--violet);
+    }
+
+    .map-container {
+      flex: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 260px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ================== FAQ SECTION ================== */
+
+    .faq-section {
+      padding: 70px 0 80px;
+      background: radial-gradient(circle at 100% 0, rgba(238, 222, 255, 0.9) 0, transparent 60%);
+    }
+
+    .faq-header {
+      max-width: 580px;
+      margin-bottom: 30px;
+    }
+
+    .accordion-button {
+      font-size: 14px;
+      font-weight: 500;
+      padding: 12px 16px;
+      border-radius: 12px !important;
+      background: #fff;
+      border: 1px solid #e2d4fb;
+      box-shadow: none;
+    }
+
+    .accordion-button:not(.collapsed) {
+      background: #f6f0ff;
+      color: var(--deep-blue);
+      box-shadow: none;
+    }
+
+    .accordion-item {
+      border: none;
+      border-radius: 16px !important;
+      margin-bottom: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 26px rgba(121, 88, 173, 0.16);
+    }
+
+    .accordion-body {
+      font-size: 13px;
+      color: #555;
+      background: #fff;
+    }
+
+    /* ================== VISIT CTA ================== */
+
+    .visit-cta {
+      padding: 80px 0 90px;
+      background: linear-gradient(120deg, rgba(191, 160, 234, 1), rgba(106, 27, 154, 1), rgba(26, 35, 126, 1));
+      color: #fff;
+      text-align: center;
+    }
+
+    .visit-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .visit-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .visit-text {
+      font-size: 14px;
+      opacity: .95;
+      margin-bottom: 18px;
+    }
+
+    .visit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      font-size: 12px;
+      background: rgba(10, 10, 20, 0.15);
+    }
+
+    .visit-pill i {
+      font-size: 16px;
+    }
+
+    /* CART TOAST (SHARED) */
+    .cart-toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--violet);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(106, 27, 154, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-20px);
+      transition: all 0.4s ease;
+      z-index: 9999;
+      font-weight: 600;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cart-toast.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 991.98px) {
+      main {
+        padding-top: 90px;
+        margin-top: -100px;
+      }
+
+      .contact-hero {
+        background-attachment: scroll;
+      }
+
+      [data-parallax] {
+        background-attachment: scroll;
+      }
+
+      .contact-hero-title {
+        font-size: 32px;
+      }
+
+      .info-band {
+        padding-top: 60px;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .contact-hero-overlay {
+        padding: 80px 0 70px;
+      }
+
+      .contact-hero-title {
+        font-size: 28px;
+      }
+
+      .contact-strip {
+        padding-bottom: 70px;
+      }
+
+      .map-shell {
+        margin-top: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR (reusing global theme) -->
+  <nav class="navbar navbar-expand-lg main-nav" data-aos="fade-down">
+    <div class="container">
+      <a class="navbar-brand mobile-logo" href="index.html">
+        <img src="img/logo.png" class="nav-logo" alt="VAYOME Logo">
+      </a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainMenu">
+        <ul class="navbar-nav nav-left mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Collections</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="all-Collections.html">All Collections</a></li>
+              <li><a class="dropdown-item" href="sarees.html">Sarees</a></li>
+              <li><a class="dropdown-item" href="lehengas.html">Lehengas</a></li>
+              <li><a class="dropdown-item" href="kurthas.html">Kurthas</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="new-arrivals.html">New Arrivals</a></li>
+        </ul>
+
+        <a href="index.html" class="navbar-brand center-logo">
+          <img src="img/logo.png" class="nav-logo" alt="VAYOME Logo">
+        </a>
+
+        <ul class="navbar-nav nav-right-menu mx-auto">
+          <li class="nav-item"><a class="nav-link" href="celebrity.html">Celebrity</a></li>
+          <li class="nav-item"><a class="nav-link" href="our-story.html">Our Story</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+        </ul>
+
+        <div class="nav-right">
+          <a href="log-in.html"><i class="fa-regular fa-user"></i></a>
+          <div class="cart-icon-wrapper" style="position:relative;">
+            <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+            <span id="cart-count" class="cart-count-badge">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CART TOAST -->
+  <div id="cart-toast" class="cart-toast">
+    <i class="fa-solid fa-circle-check"></i>
+    Added to Cart
+  </div>
+
+  <main>
+    <!-- ================== PARALLAX HERO ================== -->
+    <section class="contact-hero" data-parallax="0.35">
+      <div class="contact-hero-overlay">
+        <div class="contact-hero-inner" data-aos="fade-up">
+          <div class="hero-badge">VAYOME BOUTIQUE</div>
+          <h1 class="contact-hero-title">Let’s talk outfits & occasions</h1>
+          <p class="contact-hero-sub">
+            Whether it’s a bridal trousseau, a cocktail saree or styling for your next celebration —
+            our team is just a message away.
+          </p>
+          <div class="hero-meta-row">
+            <span>Appointments by prior booking</span>
+            <span>Custom & ready-to-wear edits</span>
+            <span>Hyderabad boutique · Pan-India shipping</span>
+          </div>
+          <div class="hero-pill">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Reply within 24 business hours</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== INFO BAND ================== -->
+    <section class="info-band">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-4" data-aos="fade-right">
+            <div class="section-label">Contact</div>
+            <h2 class="section-title">Ways to reach us</h2>
+            <div class="section-line"></div>
+            <p class="section-sub">
+              Pick what feels easiest — a quick WhatsApp, a detailed email or a direct call to our boutique.
+            </p>
+          </div>
+          <div class="col-lg-8">
+            <div class="row g-3 info-cards-row">
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="80">
+                <div class="info-card">
+                  <div class="info-icon-wrap">
+                    <i class="fa-solid fa-phone"></i>
+                  </div>
+                  <div class="info-label">Call</div>
+                  <div class="info-main">+91 98765 43210</div>
+                  <div class="info-note">Mon – Sat · 11 AM to 8 PM</div>
+                </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="140">
+                <div class="info-card">
+                  <div class="info-icon-wrap">
+                    <i class="fa-solid fa-envelope"></i>
+                  </div>
+                  <div class="info-label">Email</div>
+                  <div class="info-main">support@vayome.com</div>
+                  <div class="info-note">For orders, styling & collaborations</div>
+                </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="info-card">
+                  <div class="info-icon-wrap">
+                    <i class="fa-solid fa-location-dot"></i>
+                  </div>
+                  <div class="info-label">Visit</div>
+                  <div class="info-main">Hyderabad, Telangana</div>
+                  <div class="info-note">Boutique visits by prior appointment</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== FORM + MAP STRIP ================== -->
+    <section class="contact-strip">
+      <div class="container">
+        <div class="row g-4 align-items-stretch">
+          <!-- FORM CARD -->
+          <div class="col-lg-6" data-aos="fade-right">
+            <div class="contact-card">
+              <h3>Send us a note</h3>
+              <p>Tell us about your occasion, style preferences or any questions — we’ll get back to you with options.</p>
+
+              <form id="contactForm" novalidate>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" id="name" placeholder="Your Name" required minlength="2">
+                    <div class="invalid-feedback">Name must be at least 2 characters</div>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="email" class="form-control" id="email" placeholder="Email Address" required>
+                    <div class="invalid-feedback">Please enter a valid email</div>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="tel" class="form-control" id="phone" placeholder="Phone Number" required
+                      pattern="[6-9][0-9]{9}">
+                    <div class="invalid-feedback">Valid 10-digit Indian number required</div>
+                  </div>
+                  <div class="col-md-6">
+                    <select id="occasion" class="form-control" required>
+                      <option value="">Occasion / Query type</option>
+                      <option>Bridal & wedding</option>
+                      <option>Festive / family event</option>
+                      <option>Casual / office ethnic</option>
+                      <option>Order status / support</option>
+                      <option>Other</option>
+                    </select>
+                    <div class="invalid-feedback">Please choose an option</div>
+                  </div>
+                  <div class="col-12">
+                    <textarea class="form-control" id="message" rows="5"
+                      placeholder="Share details like date, vibe, colours you have in mind…"
+                      required minlength="10"></textarea>
+                    <div class="invalid-feedback">Message must be at least 10 characters</div>
+                  </div>
+                  <div class="col-12 mt-2">
+                    <button type="submit" class="btn-send" id="submitBtn">
+                      <span class="submit-text">Send Message</span>
+                      <span class="sending-text" style="display:none;">Sending…</span>
+                      <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="alert alert-success mt-3" id="successMessage" style="display:none;">
+                  Thank you! Your message is on its way. Our team will respond shortly.
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- MAP CARD -->
+          <div class="col-lg-6" data-aos="fade-left">
+            <div class="map-shell">
+              <div class="map-header">
+                <div>
+                  <div class="map-tag">Find us</div>
+                  <span>VAYOME Boutique · Hyderabad</span>
+                </div>
+                <span><i class="fa-solid fa-route me-1"></i>Tap to explore map</span>
+              </div>
+              <div class="map-container">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.287346481253!2d78.48667161490851!3d17.38504498809958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99daeae6b0db%3A0x9a5d6d6f7e9d8e8a!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1698000000000!5m2!1sen!2sin"
+                  loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== FAQ SECTION ================== -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-5" data-aos="fade-right">
+            <div class="faq-header">
+              <div class="section-label">FAQ</div>
+              <h2 class="section-title">Questions we get often</h2>
+              <div class="section-line"></div>
+              <p class="section-sub">
+                A quick guide to how appointments, customisations and shipping work at VAYOME.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-7" data-aos="fade-left">
+            <div class="accordion" id="faqAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faqOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faqOneCollapse" aria-expanded="true" aria-controls="faqOneCollapse">
+                    Do I need an appointment to visit the boutique?
+                  </button>
+                </h2>
+                <div id="faqOneCollapse" class="accordion-collapse collapse show" aria-labelledby="faqOne"
+                  data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    Yes, we recommend booking an appointment so our stylists can give you dedicated time
+                    and have size options ready for you to try.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faqTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faqTwoCollapse" aria-expanded="false" aria-controls="faqTwoCollapse">
+                    Do you ship outside Hyderabad?
+                  </button>
+                </h2>
+                <div id="faqTwoCollapse" class="accordion-collapse collapse" aria-labelledby="faqTwo"
+                  data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    Yes, we ship across India. For international deliveries, share your country and pin code
+                    and we’ll confirm feasibility and timelines.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faqThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faqThreeCollapse" aria-expanded="false" aria-controls="faqThreeCollapse">
+                    How long do custom orders take?
+                  </button>
+                </h2>
+                <div id="faqThreeCollapse" class="accordion-collapse collapse" aria-labelledby="faqThree"
+                  data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    Depending on the detailing, custom pieces usually take 3–5 weeks. Bridal sets may need longer.
+                    Share your date and we’ll suggest viable options.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faqFour">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faqFourCollapse" aria-expanded="false" aria-controls="faqFourCollapse">
+                    Can I alter an outfit after purchase?
+                  </button>
+                </h2>
+                <div id="faqFourCollapse" class="accordion-collapse collapse" aria-labelledby="faqFour"
+                  data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    Minor alterations are usually possible on most pieces. Reach out with your invoice and
+                    we’ll let you know what can be done.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== VISIT CTA ================== -->
+    <section class="visit-cta" data-aos="fade-up">
+      <div class="visit-inner">
+        <h3 class="visit-title">Ready to start planning your look?</h3>
+        <p class="visit-text">
+          Share your occasion and mood, and we’ll suggest sarees, lehengas and curated edits that feel like you —
+          not just what’s trending.
+        </p>
+        <div class="visit-pill">
+          <i class="fa-solid fa-message"></i>
+          <span>Drop us a message above · We’ll take it from there</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" data-aos="fade-up">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 footer-logo-center">
+          <img src="img/logo.png" alt="VAYOME Logo" style="height: 100px;">
+          <p>Luxury boutique wear designed with elegance and perfection.</p>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5>Quick Links</h5>
+          <a href="index.html">Home</a>
+          <a href="all-Collections.html">Collections</a>
+          <a href="new-arrivals.html">New Arrivals</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5>Categories</h5>
+          <a href="sarees.html">Sarees</a>
+          <a href="lehengas.html">Lehengas</a>
+          <a href="celebrity.html">Celebrity</a>
+          <a href="kurthas.html">Kurthas</a>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5>Contact Us</h5>
+          <p>Hyderabad, India</p>
+          <p>+91 98765 43210</p>
+          <p>support@boutique.com</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 VAYOME – All Rights Reserved.</div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      duration: 900,
+      easing: 'ease-out-cubic'
+    });
+
+    // SIMPLE PARALLAX EFFECT (optional for sections with data-parallax)
+    const parallaxSections = document.querySelectorAll("[data-parallax]");
+    function handleParallax() {
+      const isMobile = window.matchMedia("(max-width: 991px)").matches;
+      parallaxSections.forEach(sec => {
+        if (isMobile) {
+          sec.style.backgroundPosition = "center";
+          return;
+        }
+        const speed = parseFloat(sec.dataset.parallax) || 0.3;
+        const offset = window.pageYOffset;
+        const rect = sec.getBoundingClientRect();
+        const sectionTop = rect.top + window.pageYOffset;
+        const yPos = (offset - sectionTop) * speed;
+        sec.style.backgroundPosition = `center ${yPos}px`;
+      });
+    }
+    window.addEventListener("scroll", handleParallax);
+    window.addEventListener("load", handleParallax);
+    window.addEventListener("resize", handleParallax);
+
+    // CART SYSTEM (SHARED)
+    let cartCount = localStorage.getItem("cartCount") ? parseInt(localStorage.getItem("cartCount")) : 0;
+    function updateCartIcon() {
+      const badge = document.getElementById("cart-count");
+      if (badge) {
+        badge.textContent = cartCount;
+        badge.style.display = cartCount > 0 ? "inline-block" : "none";
+      }
+    }
+    function showToast() {
+      const toast = document.getElementById("cart-toast");
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2500);
+    }
+    function addToCart() {
+      cartCount++;
+      localStorage.setItem("cartCount", cartCount);
+      updateCartIcon();
+      showToast();
+    }
+    updateCartIcon();
+
+    // CONTACT FORM VALIDATION + FAKE SUBMIT
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        e.stopPropagation();
+        form.classList.add('was-validated');
+        return;
+      }
+
+      submitBtn.querySelector('.submit-text').style.display = 'none';
+      submitBtn.querySelector('.sending-text').style.display = 'inline';
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        successMsg.style.display = 'block';
+        form.reset();
+        form.classList.remove('was-validated');
+
+        // reset validation classes
+        ['name', 'email', 'phone', 'occasion', 'message'].forEach(id => {
+          const field = document.getElementById(id);
+          if (field) {
+            field.classList.remove('is-valid', 'is-invalid');
+          }
+        });
+
+        submitBtn.querySelector('.submit-text').style.display = 'inline';
+        submitBtn.querySelector('.sending-text').style.display = 'none';
+        submitBtn.disabled = false;
+
+        setTimeout(() => successMsg.style.display = 'none', 6000);
+      }, 1500);
+    });
+
+    ['name', 'email', 'phone', 'occasion', 'message'].forEach(id => {
+      const field = document.getElementById(id);
+      field.addEventListener('input', () => {
+        if (field.validity.valid) {
+          field.classList.add('is-valid');
+          field.classList.remove('is-invalid');
+        } else {
+          field.classList.remove('is-valid');
+          field.classList.add('is-invalid');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

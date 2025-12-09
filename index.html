@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAYOME – Fashion in Flow</title>
+
+    <!-- Bootstrap + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- MAIN NAV/FOOTER THEME FILE -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --indigo: #1A237E;
+            --violet: #6A1B9A;
+            --baby-pink: #F8BBD0;
+            --deep-blue: #0F1A8A;
+            --grey: #EDECEC;
+
+            /* legacy mapping */
+            --lavender: var(--violet);
+            --lavender-light: #F8F2F7;
+            --text: #222222;
+        }
+
+        /* ================= HERO SLIDER ================= */
+        .lavender-hero {
+            position: relative;
+            height: 70vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+        }
+
+        /* RIGHT CONTENT */
+        .hero-content-right {
+            position: absolute;
+            z-index: 10;
+            top: 50%;
+            right: 6%;
+            transform: translateY(-50%);
+            text-align: right;
+            color: black;
+        }
+
+        .hero-content-right h1 {
+            font-size: 54px;
+            font-weight: 700;
+            margin-top: -100px;
+        }
+
+        .hero-content-right p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        .btn-lavender {
+            margin-top: 25px;
+            padding: 12px 38px;
+            border-radius: 50px;
+            background: var(--lavender);
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: .5px;
+            text-decoration: none;
+            transition: .3s;
+        }
+
+        .btn-lavender:hover {
+            background: #a176d9;
+        }
+
+        /* CART BADGE */
+        .cart-count-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--lavender);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 50%;
+            padding: 2px 7px;
+            display: none;
+        }
+
+        /* TOAST */
+        .cart-toast {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: var(--lavender);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-12px);
+            transition: all .4s ease;
+            z-index: 9999;
+        }
+
+        .cart-toast.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ----------------------------------------------------
+           COLLECTION CARDS
+        ---------------------------------------------------- */
+        .section-header h2 {
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        .underline {
+            width: 80px;
+            height: 4px;
+            background: var(--lavender);
+            border-radius: 4px;
+            margin-top: 6px;
+        }
+
+        .collection-card {
+            height: 300px;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .collection-card img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: .4s;
+        }
+
+        .collection-card:hover img {
+            transform: scale(1.07);
+        }
+
+        .collection-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 12px;
+        }
+
+        .collection-name:hover {
+            color: var(--lavender);
+        }
+
+        /* ----------------------------------------------------
+           PRODUCT CARD – ANIMATED (Glossy)
+        ---------------------------------------------------- */
+        .product-card-ani {
+            --button-bg: var(--lavender);
+            --button-bg-hover: #a27acd;
+
+            background: #fff;
+            border-radius: 1.9rem;
+            padding: 0.6rem;
+            overflow: hidden;
+            position: relative;
+            height: 400px;
+            transition: 0.3s ease;
+        }
+
+        .product-card-ani::before {
+            content: "";
+            position: absolute;
+            width: calc(100% - 1.2rem);
+            height: 35%;
+            bottom: 0.5rem;
+            left: 0.6rem;
+            mask: linear-gradient(#0000, #000f 80%);
+            border-radius: 0 0 1.4rem 1.4rem;
+            translate: 0 0;
+            transition: 0.3s;
+        }
+
+        .product-card-ani img {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            border-radius: 1.2rem;
+            transition: 0.4s ease;
+            object-position: 50% 10%;
+        }
+
+        .product-card-ani:hover img {
+            aspect-ratio: 1 / 1;
+            object-position: 50% 20%;
+        }
+
+        .product-card-ani section {
+            position: absolute;
+            left: 1.1rem;
+            right: 1.1rem;
+            bottom: 0.9rem;
+        }
+
+        .product-card-ani h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            opacity: 0;
+            translate: 0 -40%;
+            transition: 0.3s ease;
+        }
+
+        .product-card-ani .bottom-row {
+            display: flex;
+            justify-content: space-between;
+            opacity: 0;
+            translate: 0 40%;
+            transition: 0.3s ease;
+        }
+
+        .product-card-ani:hover h2,
+        .product-card-ani:hover .bottom-row {
+            opacity: 1;
+            translate: 0 0;
+        }
+
+        .price-tag {
+            font-weight: 700;
+            color: var(--lavender);
+        }
+
+        .add-btn {
+            padding: 7px 18px;
+            border-radius: 30px;
+            background: var(--button-bg);
+            color: #fff;
+            font-weight: 600;
+            border: none;
+        }
+
+        .add-btn:hover {
+            background: var(--button-bg-hover);
+        }
+
+        /* ----------------------------------------------------
+           WHY CHOOSE US
+        ---------------------------------------------------- */
+        .why-box i {
+            font-size: 36px;
+            color: var(--lavender);
+        }
+
+        .why-box h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* ----------------------------------------------------
+           REVIEWS
+        ---------------------------------------------------- */
+        .reviews-section {
+            background: #F8F2F7;
+        }
+
+        .review-card {
+            background: white;
+            border: 1px solid #e8dafa;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 12px rgba(180, 151, 214, 0.1);
+            transition: .3s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 18px rgba(180, 151, 214, 0.2);
+        }
+
+        /* ----------------------------------------------------
+           INSTAGRAM SLIDER
+        ---------------------------------------------------- */
+        .insta-slider {
+            width: 100%;
+            overflow: hidden;
+            padding: 10px 0;
+        }
+
+        .insta-track {
+            display: flex;
+            gap: 20px;
+            animation: instaScroll 25s linear infinite;
+            white-space: nowrap;
+        }
+
+        .insta-img img {
+            width: 210px;
+            height: 210px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        @keyframes instaScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ----------------------------------------------------
+           TOAST (Add to Cart)
+        ---------------------------------------------------- */
+        .cart-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--lavender);
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s;
+            z-index: 9999;
+        }
+
+        .cart-toast.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ===================== SLIDE ANIMATIONS ===================== */
+        @keyframes slideFromLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideFromRight {
+            0% {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-left {
+            opacity: 0;
+            animation: slideFromLeft 0.9s ease-out forwards;
+        }
+
+        .animate-right {
+            opacity: 0;
+            animation: slideFromRight 1s ease-out forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar navbar-expand-lg main-nav" data-aos="fade-down" data-aos-duration="800">
+        <div class="container">
+
+            <!-- MOBILE LOGO -->
+            <a class="navbar-brand mobile-logo">
+                <img src="img/logo.png" class="nav-logo" alt="Logo">
+            </a>
+
+            <!-- TOGGLER -->
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainMenu">
+
+                <ul class="navbar-nav nav-left mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+
+                    <!-- COLLECTIONS DROPDOWN -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Collections</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="all-Collections.html">All Collections</a></li>
+                            <li><a class="dropdown-item" href="sarees.html">Sarees</a></li>
+                            <li class="dropdown-item " href="lehengas.html">Lehengas</li>
+                            <li><a class="dropdown-item" href="kurthas.html">Kurthas</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="new-arrivals.html">New Arrivals</a></li>
+
+                </ul>
+
+                <!-- CENTER LOGO -->
+                <a href="index.html" class="navbar-brand center-logo">
+                    <img src="img/logo.png" class="nav-logo">
+                </a>
+
+                <!-- RIGHT MENU -->
+                <ul class="navbar-nav nav-right-menu mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="celebrity.html">Celebrity</a></li>
+                    <li class="nav-item"><a class="nav-link" href="our-story.html">Our Story</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+
+                <!-- RIGHT ICONS WITH CART BADGE -->
+                <div class="nav-right">
+                    <a href="log-in.html"><i class="fa-regular fa-user"></i></a>
+
+                    <div class="cart-icon-wrapper" style="position:relative;">
+                        <a href="cart.html"> <i class="fa-solid fa-bag-shopping"></i></a>
+                        <span id="cart-count" class="cart-count-badge">0</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SLIDER ==================== -->
+    <section class="hero-slider lavender-hero">
+        <div class="hero-slide active" style="background-image:url('img/1.jpg');"></div>
+        <div class="hero-slide" style="background-image:url('img/2.jpg');"></div>
+        <div class="hero-slide" style="background-image:url('img/3.jpg');"></div>
+        <div class="hero-slide" style="background-image:url('img/4.jpg');"></div>
+
+        <div class="hero-content-right animate-right" data-aos="fade-left" data-aos-delay="600" data-aos-duration="1000">
+            <h1>Elegance Redefined</h1>
+            <p>Discover premium sarees, lehengas & designer outfits.</p>
+            <a class="btn-lavender" href="all-collections.html"> Shop Now</a>
+        </div>
+    </section>
+
+    <!-- ==================== COLLECTIONS ==================== -->
+    <section class="collections-section py-5 animate-left">
+        <div class="container">
+            <div class="section-header mb-4" data-aos="fade-up" data-aos-duration="800">
+                <h2>Collections</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-3 col-6 text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="collection-card"><a href="lehengas.html"><img
+                                src="https://www.inddus.com/cdn/shop/files/7086NAVYBLUE_01.jpg?v=1749813613"></a></div>
+                    <a href="lehengas.html">
+                        <p class="collection-name">Lehengas</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-6 text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="collection-card"><a href="sarees.html"><img
+                                src="https://assets0.mirraw.com/images/12963672/image_zoom.jpeg?1732946951"></a></div>
+                    <a href="sarees.html">
+                        <p class="collection-name">Sarees</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-6 text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="collection-card"><a href="celebrity.html"><img
+                                src="https://bollyspice.com/wp-content/uploads/2025/02/IMG_5383.jpeg"></a></div>
+                    <a href="celebrity.html">
+                        <p class="collection-name">Celebrity</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-6 text-center" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="collection-card"><a href="kurthas.html"><img
+                                src="https://taractara.com/cdn/shop/products/white-floral-printed-hand-block-printed-cotton-kurta-set-with-dupatta-885735_1000x.jpg?v=1706182185"></a>
+                    </div>
+                    <a href="kurthas.html">
+                        <p class="collection-name">Kurthas</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURED PRODUCTS ==================== -->
+    <section class="featured-section py-5 animate-right" style="background:#F8F2F7;">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Featured Products</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="row g-4 mt-4">
+                <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="product-card-ani">
+                        <div class="img-box">
+                            <img
+                                src="https://ekamsarees.com/cdn/shop/files/1_30a9f8e8-32b5-4278-ae87-28bfa8f9c729_1024x1024.jpg?v=1756279513">
+                        </div>
+                        <section>
+                            <h2>Noir Polka Muslin Saree</h2>
+                            <div class="bottom-row">
+                                <span class="price-tag">Rs. 7,820</span>
+                                <div class="button-row">
+                                    <button class="add-btn" onclick="addToCart()">Add</button>
+                                    <a href="product-view.html" class="view-btn">View</a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="product-card-ani">
+                        <div class="img-box">
+                            <img
+                                src="https://diyarajvvir.in/cdn/shop/products/3_4b708863-5377-4121-a8a6-22aeaf7c7693.jpg?v=1756397247&width=2048">
+                        </div>
+                        <section>
+                            <h2>Crimson Red Ruffle Saree</h2>
+                            <div class="bottom-row">
+                                <span class="price-tag">Rs. 19,420</span>
+                                <div class="button-row">
+                                    <button class="add-btn" onclick="addToCart()">Add</button>
+                                    <a href="product-view.html" class="view-btn">View</a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="product-card-ani">
+                        <div class="img-box">
+                            <img src="https://img.faballey.com/images/Product/DLS00630Z/3.jpg">
+                        </div>
+                        <section>
+                            <h2>Blush Pink Draped Lehenga</h2>
+                            <div class="bottom-row">
+                                <span class="price-tag">Rs. 21,275</span>
+                                <div class="button-row">
+                                    <button class="add-btn" onclick="addToCart()">Add</button>
+                                    <a href="product-view.html" class="view-btn">View</a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="product-card-ani">
+                        <div class="img-box">
+                            <img src="https://www.libas.in/cdn/shop/files/99366_7Main.jpg?v=1740120310&width=1080">
+                        </div>
+                        <section>
+                            <h2>Burgundy Organza Set</h2>
+                            <div class="bottom-row">
+                                <span class="price-tag">Rs. 17,250</span>
+                                <div class="button-row">
+                                    <button class="add-btn" onclick="addToCart()">Add</button>
+                                    <a href="product-view.html" class="view-btn">View</a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== WHY CHOOSE US ==================== -->
+    <section class="why-section py-5 animate-left">
+        <div class="container">
+            <div class="section-header mb-5" data-aos="fade-up">
+                <h2>Why Choose Us</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="row text-center g-4">
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="why-box">
+                        <i class="fa-solid fa-gem"></i>
+                        <h4>Premium Quality</h4>
+                        <p>Handpicked designer outfits with luxury finishing.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="why-box">
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <h4>Fast Delivery</h4>
+                        <p>Quick and safe shipping across India.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="why-box">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <h4>Easy Returns</h4>
+                        <p>Hassle-free return policy on all products.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="why-box">
+                        <i class="fa-solid fa-headset"></i>
+                        <h4>24/7 Support</h4>
+                        <p>Dedicated support for all customer needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CART TOAST -->
+    <div id="cart-toast" class="cart-toast">
+        Added to Cart
+    </div>
+
+    <!-- ==================== REVIEWS ==================== -->
+    <section class="reviews-section py-5 animate-right">
+        <div class="container">
+            <div class="section-header mb-5" data-aos="fade-up">
+                <h2>What Our Customers Say</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="review-card">
+                        <p class="review-text">
+                            “Absolutely loved the quality of the saree!
+                            The detailing and finishing were so premium. Worth every rupee!”
+                        </p>
+                        <div class="review-user">
+                            <img src="https://i.pravatar.cc/100?img=12" alt="" style="border-radius: 100px;">
+                            <div>
+                                <h6>Priya Sharma</h6>
+                                <span>Hyderabad</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="review-card">
+                        <p class="review-text">
+                            “Super fast delivery and the lehenga looked even better in real!
+                            Amazing service and support!”
+                        </p>
+                        <div class="review-user">
+                            <img src="https://i.pravatar.cc/100?img=5" alt="" style="border-radius: 100px;">
+                            <div>
+                                <h6>Neha Reddy</h6>
+                                <span>Bangalore</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="review-card">
+                        <p class="review-text">
+                            “Great collection and beautiful designs.
+                            The fabric quality is premium, totally satisfied!”
+                        </p>
+                        <div class="review-user">
+                            <img src="https://i.pravatar.cc/100?img=9" alt="" style="border-radius: 100px;">
+                            <div>
+                                <h6>Anjali Mehta</h6>
+                                <span>Mumbai</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="insta-section py-5 animate-left" style="background-color: white;">
+        <div class="container">
+            <div class="section-header mb-4" data-aos="fade-up">
+                <h2>Follow Us On Instagram</h2>
+                <div class="underline"></div>
+            </div>
+        </div>
+
+        <div class="insta-slider" data-aos="fade-up" data-aos-delay="200">
+            <div class="insta-track" id="instaTrack">
+                <div class="insta-img"><img
+                        src="https://www.vastranand.in/cdn/shop/files/1_f3663edc-d825-480e-a174-204371031c1d.jpg?v=1743078765">
+                </div>
+                <div class="insta-img"><img
+                        src="https://ragthm.com/cdn/shop/files/WhatsAppImage2024-12-23at7.13.36PM.jpg?v=1736169495">
+                </div>
+                <div class="insta-img"><img
+                        src="https://bombaysaree.in/cdn/shop/files/Stunning_Lehenga_Saree_with_Thread_Sequence_Choli_Perfect_for_Occasions.jpg?v=1745586457&width=1946">
+                </div>
+                <div class="insta-img"><img src="https://m.media-amazon.com/images/I/71+FRIdP3pL._AC_UY1100_.jpg"></div>
+                <div class="insta-img"><img
+                        src="https://i0.wp.com/taravastra.com/wp-content/uploads/2025/10/Kanjivaram-half-saree-lehenga-with-embroidered-dupatta-front-view.jpeg?fit=1066%2C1600&ssl=1">
+                </div>
+                <div class="insta-img"><img
+                        src="https://www.sudarshansaree.com/cdn/shop/files/PRT26933-2.jpg?v=1732349916"></div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="#" class="btn-insta">Follow @boutique</a>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer animate-right" data-aos="fade-up">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 footer-logo-center">
+                    <img src="img/logo.png" alt="VAYOME Logo" style="height: 100px;">
+                    <p>Luxury boutique wear designed with elegance and perfection.</p>
+                </div>
+
+                <div class="col-md-2 mb-4">
+                    <h5>Quick Links</h5>
+                    <a href="index.html">Home</a>
+                    <a href="all-Collections.html">Collections</a>
+                    <a href="new-arrivals.html">New Arrivals</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+
+                <div class="col-md-2 mb-4">
+                    <h5>Categories</h5>
+                    <a href="sarees.html">Sarees</a>
+                    <a href="lehengas.html">Lehengas</a>
+                    <a href="celebrity.html">celebrity</a>
+                    <a href="kurthas.html">Kurthas</a>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <h5>Contact Us</h5>
+                    <p><i class="fa-solid fa-location-dot"></i> Hyderabad, India</p>
+                    <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fa-solid fa-envelope"></i> support@boutique.com</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2025 VAYOME – All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            duration: 800,
+            easing: 'ease-out-cubic'
+        });
+    </script>
+
+    <script>
+        // HERO SLIDER
+        const slides = document.querySelectorAll(".hero-slide");
+        let heroIndex = 0;
+
+        function changeHero() {
+            slides[heroIndex].classList.remove("active");
+            heroIndex = (heroIndex + 1) % slides.length;
+            slides[heroIndex].classList.add("active");
+        }
+
+        setInterval(changeHero, 2500);
+    </script>
+
+    <script>
+        // SIMPLE CART SYSTEM
+        let cartCount = localStorage.getItem("cartCount") ? parseInt(localStorage.getItem("cartCount")) : 0;
+
+        function updateCartIcon() {
+            const badge = document.getElementById("cart-count");
+            if (!badge) return;
+            badge.textContent = cartCount;
+            badge.style.display = cartCount > 0 ? "inline-block" : "none";
+        }
+
+        function showToast() {
+            const toast = document.getElementById("cart-toast");
+            if (!toast) return;
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2000);
+        }
+
+        function addToCart() {
+            cartCount++;
+            localStorage.setItem("cartCount", cartCount);
+            updateCartIcon();
+            showToast();
+        }
+
+        updateCartIcon();
+    </script>
+
+    <script>
+        const track = document.getElementById("instaTrack");
+        while (track.scrollWidth < window.innerWidth * 2) {
+            track.innerHTML += track.innerHTML;
+        }
+    </script>
+</body>
+
+</html>
